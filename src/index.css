@@ -8,5 +8,19 @@ main {
 }
 
 img {
+  width: 400px;
+  height: 400px;
   image-rendering: pixelated;
+}
+
+.hidden-img {
+  filter: brightness(0);
+}
+
+.fade-in {
+  animation: fadeIn 0.3s;
+  -webkit-animation: fadeIn 0.3s;
+  -moz-animation: fadeIn 0.3s;
+  -o-animation: fadeIn 0.3s;
+  -ms-animation: fadeIn 0.3s;
 }
