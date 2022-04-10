@@ -2,24 +2,16 @@ import { useState } from "react";
 import usePokemon from "./hooks/usePokemon";
 
 function App() {
-  const [guessed, setGuessed] = useState(false);
-  const [pokemonName, setPokemonName] = useState<String>("");
-
-  const { pokemon, loading, setGameOver, setPokemon } = usePokemon();
-
-  const startGame = () => {
-    setGuessed(false);
-    setGameOver(true);
-    setPokemonName("");
-    setPokemon(null);
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (pokemonName.trim().toLocaleLowerCase() === pokemon?.name) {
-      setGuessed(true);
-    }
-  };
+  const {
+    pokemon,
+    loading,
+    userWin,
+    pokemonName,
+    guessed,
+    startGame,
+    handleSubmit,
+    setPokemonName,
+  } = usePokemon();
 
   if (loading) return <div>loading...</div>;
 
@@ -46,9 +38,16 @@ function App() {
           </div>
         </form>
         {guessed && (
-          <button className="nes-btn is-primary" onClick={() => startGame()}>
-            Volver a jugar
-          </button>
+          <>
+            <button className="nes-btn is-primary" onClick={() => startGame()}>
+              Volver a jugar
+            </button>
+            <div>
+              {userWin
+                ? `Has ganado! partidas ganas: ${localStorage.getItem("win")}`
+                : `Has perdido, el pokemon era: ${pokemon.name}`}
+            </div>
+          </>
         )}
       </main>
     );
