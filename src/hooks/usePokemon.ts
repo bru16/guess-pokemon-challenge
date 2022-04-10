@@ -42,14 +42,11 @@ const usePokemon = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (pokemonName.trim().toLocaleLowerCase() === pokemon?.name) {
-      setGuessed(true);
-      setUserWin(true);
-      updateStats(true);
-    } else {
-      updateStats(false);
-      setGuessed(true);
-    }
+    const isAnswerCorrect =
+      pokemonName.trim().toLocaleLowerCase() === pokemon?.name;
+    updateStats(isAnswerCorrect);
+    setGuessed(true);
+    setUserWin(isAnswerCorrect);
   };
 
   useEffect(() => {
