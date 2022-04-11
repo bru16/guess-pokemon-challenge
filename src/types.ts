@@ -3,3 +3,8 @@ export interface Pokemon {
   name: string;
   image: string;
 }
+
+export type Stats = {
+  wins: number;
+  losses: number;
+};

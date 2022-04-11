@@ -1,4 +1,3 @@
-import { useState } from "react";
 import usePokemon from "./hooks/usePokemon";
 
 function App() {
@@ -6,11 +5,11 @@ function App() {
     pokemon,
     loading,
     userWin,
-    pokemonName,
     guessed,
     startGame,
     handleSubmit,
     setPokemonName,
+    stats,
   } = usePokemon();
 
   if (loading) return <div>loading...</div>;
@@ -26,15 +25,21 @@ function App() {
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="nes-field">
             <label htmlFor="name_field">Pokemon name</label>
-            <input
-              autoFocus
-              type="text"
-              id="name_field"
-              className="nes-input"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setPokemonName(e.target.value)
-              }
-            />
+            <div className="form-input">
+              <input
+                required
+                autoFocus
+                type="text"
+                id="name_field"
+                className="nes-input"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setPokemonName(e.target.value)
+                }
+              />
+              <button type="submit" className="nes-btn is-primary">
+                send
+              </button>
+            </div>
           </div>
         </form>
         {guessed && (
@@ -44,9 +49,11 @@ function App() {
             </button>
             <div>
               {userWin
-                ? `Has ganado! partidas ganas: ${localStorage.getItem("win")}`
-                : `Has perdido, el pokemon era: ${pokemon.name}`}
+                ? `You win, the pokemon was: ${pokemon.name}`
+                : `You lost, the pokemon was: ${pokemon.name}`}
             </div>
+            <span className="nes-text is-success">wins: {stats.wins}</span>
+            <span className="nes-text is-error">losses: {stats.losses}</span>
           </>
         )}
       </main>

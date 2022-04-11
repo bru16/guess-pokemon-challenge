@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from "react";
 
 import random from "../api";
-import { Pokemon } from "../types";
+import { Pokemon, Stats } from "../types";
 
 const usePokemon = () => {
+  const STATS: Stats = JSON.parse(localStorage.getItem("stats") as string) || {
+    wins: 0,
+    losses: 0,
+  };
+
   const [gameOver, setGameOver] = useState(false);
   const [loading, setLoading] = useState(true);
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
   const [guessed, setGuessed] = useState(false);
   const [pokemonName, setPokemonName] = useState<String>("");
   const [userWin, setUserWin] = useState(false);
+  const [stats, setStats] = useState<Stats>(STATS);
 
-  const updateStats = (game: Boolean) => {
-    const stats = localStorage.getItem("win");
-
-    if (stats) {
-      if (game) {
-        const victory = parseInt(stats) + 1;
-        localStorage.setItem("win", victory.toString());
-        return;
-      }
-      console.log("xd");
-      localStorage.setItem("win", "1");
-    }
+  const updateStats = (win: Boolean) => {
+    const obj: Stats = win
+      ? { ...stats, wins: stats.wins + 1 }
+      : { ...stats, losses: stats.losses + 1 };
+      
+    localStorage.setItem("stats", JSON.stringify(obj));
+    setStats(obj);
   };
 
   const startGame = () => {
@@ -59,11 +60,12 @@ const usePokemon = () => {
     loading,
     gameOver,
     pokemonName,
+    stats,
+    guessed,
     setPokemon,
     setGameOver,
     updateStats,
     fetchPokemon,
-    guessed,
     startGame,
     handleSubmit,
     setPokemonName,
