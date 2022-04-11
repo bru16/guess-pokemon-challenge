@@ -23,6 +23,10 @@ img {
   display: flex;
 }
 
+.game-btn{
+  margin: 50px;
+}
+
 .hidden-img {
   filter: brightness(0);
 }

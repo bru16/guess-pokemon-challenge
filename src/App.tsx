@@ -27,6 +27,7 @@ function App() {
             <label htmlFor="name_field">Pokemon name</label>
             <div className="form-input">
               <input
+                disabled={guessed ? true : false}
                 required
                 autoFocus
                 type="text"
@@ -36,7 +37,11 @@ function App() {
                   setPokemonName(e.target.value)
                 }
               />
-              <button type="submit" className="nes-btn is-primary">
+              <button
+                disabled={guessed ? true : false}
+                type="submit"
+                className="nes-btn is-primary"
+              >
                 send
               </button>
             </div>
@@ -44,7 +49,10 @@ function App() {
         </form>
         {guessed && (
           <>
-            <button className="nes-btn is-primary" onClick={() => startGame()}>
+            <button
+              className="nes-btn game-btn is-primary"
+              onClick={() => startGame()}
+            >
               Volver a jugar
             </button>
             <div>
