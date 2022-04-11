@@ -53,7 +53,7 @@ function App() {
               className="nes-btn game-btn is-primary"
               onClick={() => startGame()}
             >
-              Volver a jugar
+              Play again
             </button>
             <div>
               {userWin
